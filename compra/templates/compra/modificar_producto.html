@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario para Modificar producto</title>
+</head>
+<body>
+    <form method="post">
+        {%csrf_token%}
+        nombre:<input type="text" name="nombre" value="{{producto.nombre}}">
+        precio:<input type="number" name="precio" value="{{ producto.precio }}">
+        <br>
+        proveedor:<select name="proveedor">
+            {%for proveedor in listado_Proveedor%}
+                {% if producto.proveedor.id == proveedor.id %}
+
+                    <option value="{{proveedor.id}}" SELECTED>
+                        {{proveedor.nombre}}
+                    </option>
+
+                {% else %}
+
+                    <option value="{{proveedor.id}}">
+                        {{proveedor.nombre}}
+                    </option>
+
+                {% endif %}
+
+            {% endfor %}
+        </select>
+        <input type="submit" value="Actualizar">
+    </form>
+    <a href="{% url 'listado_productos'%}">
+        Volver
+    </a>
+</body>
+</html>
